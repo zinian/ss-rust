@@ -62,13 +62,14 @@ iptables -A SHADOWSOCKS -p udp --dport 53 -j ACCEPT
 iptables -A SHADOWSOCKS -p tcp --dport 53 -j ACCEPT
 iptables -A SHADOWSOCKS -p tcp --dport 80 -j ACCEPT
 iptables -A SHADOWSOCKS -p tcp --dport 443 -j ACCEPT
-# for kcptun
-iptables -A SHADOWSOCKS -p tcp --dport PORT -j ACCEPT
-# PORT = shadowsocks server port 
 iptables -A SHADOWSOCKS -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A SHADOWSOCKS -p tcp -j REJECT --reject-with tcp-reset
 iptables -A SHADOWSOCKS -p udp -j REJECT
 iptables -A OUTPUT -j SHADOWSOCKS
+</pre>
+# for kcptun
+<pre>
+iptables -I SHADOWSOCKS 14 -p tcp --dport 443 -j ACCEPT
 </pre>
 iptables save & restart & enable iptables.service
 <pre>
