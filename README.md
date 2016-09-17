@@ -18,6 +18,7 @@ make install
 <pre>
 nohup ss-server -p PORT -k password -m chacha20 -a nobody -n 51200 -A -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
 </pre>
+PORT in <a href="https://github.com/zinian/myss#for-kcptun">KCPTUN</a>  
 # for iptables
 安装iptables services
 <pre>
