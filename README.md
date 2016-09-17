@@ -14,11 +14,11 @@ cd shadowsocks-libev
 make install
 </pre>
 
-# for log
+# run with log
 <pre>
 nohup ss-server -p PORT -k password -m chacha20 -a nobody -n 51200 -A -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
 </pre>
-PORT in <a href="https://github.com/zinian/myss#for-kcptun">KCPTUN</a>  
+PORT in <a href="#for kcptun">KCPTUN iptables rule</a>
 # for iptables
 安装iptables services
 <pre>
