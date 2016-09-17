@@ -1,4 +1,4 @@
-# shadowsocks-libev
+# Shadowsocks-libev
 Operating system:	Centos 7 x86_64 minimal  
 系统升级
 <pre>
@@ -14,12 +14,12 @@ cd shadowsocks-libev
 make install
 </pre>
 
-# run with log
+# Run with log
 <pre>
 nohup ss-server -p PORT -k password -m chacha20 -a nobody -n 51200 -A -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
 </pre>
-PORT in <a href="#for kcptun">KCPTUN iptables rule</a>
-# for iptables
+PORT in <a href="# kcptun">KCPTUN iptables rule</a>
+# Iptables
 安装iptables services
 <pre>
 yum install net-tools iptables-services policycoreutils
@@ -47,7 +47,7 @@ iptables -A FORWARD -m string --string "GET /scrape.php?info_hash=" --algo bm --
 iptables -A FORWARD -m string --string "GET /scrape.php?passkey=" --algo bm --to 65535 -j DROP
 iptables -A FORWARD -m string --hex-string "|13426974546f7272656e742070726f746f636f6c|" --algo bm --to 65535 -j DROP
 </pre>
-iptables rules for SHADOWSOCKS
+Iptables rules for SHADOWSOCKS
 <pre>
 iptables -N SHADOWSOCKS
 iptables -A SHADOWSOCKS -p tcp --syn -m connlimit --connlimit-above 20 -j REJECT --reject-with tcp-reset
@@ -68,7 +68,7 @@ iptables -A SHADOWSOCKS -p tcp -j REJECT --reject-with tcp-reset
 iptables -A SHADOWSOCKS -p udp -j REJECT
 iptables -A OUTPUT -j SHADOWSOCKS
 </pre>
-# for kcptun
+# Kcptun
 <pre>
 iptables -I SHADOWSOCKS 14 -p tcp --dport PORT -j ACCEPT
 </pre>
