@@ -16,7 +16,7 @@ make install
 
 # for log
 <pre>
-nohup ss-server -p 443 -k password -m chacha20 -a nobody -n 51200 -A -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
+nohup ss-server -p PORT -k password -m chacha20 -a nobody -n 51200 -A -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
 </pre>
 # for iptables
 安装iptables services
@@ -69,7 +69,7 @@ iptables -A OUTPUT -j SHADOWSOCKS
 </pre>
 # for kcptun
 <pre>
-iptables -I SHADOWSOCKS 14 -p tcp --dport 443 -j ACCEPT
+iptables -I SHADOWSOCKS 14 -p tcp --dport PORT -j ACCEPT
 </pre>
 iptables save & restart & enable iptables.service
 <pre>
