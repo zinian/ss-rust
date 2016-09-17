@@ -72,7 +72,7 @@ iptables -A OUTPUT -j SHADOWSOCKS
 <pre>
 iptables -I SHADOWSOCKS 14 -p tcp --dport PORT -j ACCEPT
 </pre>
-iptables save & restart & enable iptables.service
+# iptables save & restart & enable iptables.service
 <pre>
 service iptables save
 service iptables restart
