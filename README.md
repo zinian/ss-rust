@@ -18,7 +18,6 @@ make install
 <pre>
 nohup ss-server -p PORT -k password -m chacha20 -a nobody -n 51200 -A -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
 </pre>
-PORT in <a href="#kcptun">KCPTUN iptables rule</a>
 # Iptables
 安装iptables services
 <pre>
@@ -69,6 +68,8 @@ iptables -A SHADOWSOCKS -p udp -j REJECT
 iptables -A OUTPUT -j SHADOWSOCKS
 </pre>
 # Kcptun
+`ss-server -s IP -p SPORT -k password -m chacha20`
+`kcptun -t "IP:SPORT" -l ":KPORT" -mode normal`
 <pre>
 iptables -I SHADOWSOCKS 14 -p tcp --dport PORT -j ACCEPT
 </pre>
