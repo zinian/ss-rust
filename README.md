@@ -16,7 +16,7 @@ make install
 
 # Run with log
 <pre>
-nohup ss-server -p SPORT -k password -m chacha20 -a nobody -n 51200 -A -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
+nohup ss-server -p `SPORT` -k password -m chacha20 -a nobody -n 51200 -A -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
 </pre>
 # Iptables
 安装iptables services
@@ -49,7 +49,7 @@ iptables -A FORWARD -m string --hex-string "|13426974546f7272656e742070726f746f6
 Iptables rules for SHADOWSOCKS
 <pre>
 iptables -N SHADOWSOCKS
-iptables -A SHADOWSOCKS -p tcp --syn -m connlimit --connlimit-above 20 -j REJECT --reject-with tcp-reset
+iptables -A SHADOWSOCKS -p tcp --syn -m connlimit --connlimit-above 32 -j REJECT --reject-with tcp-reset
 iptables -A SHADOWSOCKS -d 127.0.0.0/8 -j REJECT
 iptables -A SHADOWSOCKS -d 0.0.0.0/8 -j REJECT
 iptables -A SHADOWSOCKS -d 10.0.0.0/8 -j REJECT
@@ -69,11 +69,11 @@ iptables -A OUTPUT -j SHADOWSOCKS
 </pre>
 # Kcptun
 <pre>
-ss-server -s IP -p SPORT -k password -m chacha20
-kcptun -t "IP:SPORT" -l ":KPORT" -mode normal
+kcptun -t ":`SPORT`" -l ":`KPORT`" -mode normal
 </pre>
 <pre>
-iptables -I SHADOWSOCKS 14 -p tcp --dport PORT -j ACCEPT
+iptables -I SHADOWSOCKS -s 127.0.0.1 -d 127.0.0.1 -p tcp --dport `SPORT`  -j ACCEPT
+iptables -I SHADOWSOCKS -s 127.0.0.1 -d 127.0.0.1 -p tcp --sport `SPORT`  -j ACCEPT
 </pre>
 # iptables save & restart & enable iptables.service
 <pre>
