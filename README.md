@@ -16,7 +16,21 @@ make install
 
 # Run with log
 <pre>
-nohup ss-server -p `SPORT` -k password -m chacha20 -a nobody -n 51200 -A -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
+nohup ss-server -p `SPORT` -k password -m chacha20 -a nobody -n 51200 -A -u -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
+</pre>
+
+# server-multi-port
+
+server-multi-port.json
+<pre>
+{
+	"port_password": {
+		"8387": "foobar",
+		"8388": "barfoo"
+	},
+	"method": "aes-128-cfb",
+	"timeout": 600
+}
 </pre>
 # Iptables
 安装iptables services
