@@ -19,7 +19,7 @@ make install
 nohup ss-server -p `SPORT` -k password -m chacha20 -a nobody -n 51200 -A -u -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
 </pre>
 
-# server-multi-port
+# Server-multi-port
 
 server-multi-port.json
 <pre>
@@ -31,6 +31,10 @@ server-multi-port.json
 	"method": "aes-128-cfb",
 	"timeout": 600
 }
+</pre>
+Run server-multi-port
+<pre>
+nohup ss-manager --manager-address /var/run/shadowsocks-manager.sock -A -u -c "server-multi-port.json" &
 </pre>
 # Iptables
 安装iptables services
