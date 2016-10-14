@@ -16,7 +16,7 @@ make install
 
 ## Run with log
 <pre>
-nohup ss-server -p `SPORT` -k password -m chacha20 -a nobody -n 51200 -A -u -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
+nohup ss-server -p `SPORT` -k password -m chacha20 -a nobody -n 51200 -A -u -a shadowsocks -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
 </pre>
 
 ## Server-multi-port
@@ -32,9 +32,9 @@ server-multi-port.json
 	"timeout": 600
 }
 </pre>
-Run server-multi-port
+### Run server-multi-port
 <pre>
-nohup ss-manager --manager-address /var/run/shadowsocks-manager.sock -A -u -c "server-multi-port.json" &
+nohup ss-manager --manager-address /var/run/shadowsocks-manager.sock -A -u -a shadowsocks -n 51200 -c "server-multi-port.json" &
 </pre>
 # Iptables
 安装iptables services
