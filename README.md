@@ -68,8 +68,7 @@ Iptables rules for SHADOWSOCKS
 
 centos 创建一个安全用户
 <pre>
-useradd -s /usr/sbin/nologin -r -m -d /shadowsocks shadowsocks
-nohup ss-manager --manager-address /shadowsocks/shadowsocks-manager.sock -A -u -a shadowsocks  -c /shadowsocks/ss-libev.json &
+useradd -u 0 -o -g root -G root -s /usr/sbin/nologin -r -M -d /dev/null shadowsocks
 </pre>
 <pre>
 iptables -N SHADOWSOCKS
