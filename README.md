@@ -65,6 +65,9 @@ iptables -A FORWARD -m string --string "GET /scrape.php?passkey=" --algo bm --to
 iptables -A FORWARD -m string --hex-string "|13426974546f7272656e742070726f746f636f6c|" --algo bm --to 65535 -j DROP
 </pre>
 Iptables rules for SHADOWSOCKS
+
+centos 创建一个安全用户
+'useradd -s /usr/sbin/nologin -r -M -d /dev/null shadowsocks'
 <pre>
 iptables -N SHADOWSOCKS
 iptables -A SHADOWSOCKS -p tcp --syn -m connlimit --connlimit-above 32 -j REJECT --reject-with tcp-reset
