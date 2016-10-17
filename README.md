@@ -100,4 +100,9 @@ service iptables stop
 service iptables restart
 systemctl enable iptables.service
 </pre>
-
+##TC
+<pre>
+tc qdisc del dev venet0 root
+tc qdisc add dev venet0 root tbf rate 5120kbit burst 32kb latency 100ms
+tc -s qdisc ls dev venet0
+</pre>
