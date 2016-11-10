@@ -8,11 +8,11 @@ yum update
 编译shadowsocks-libev
 <pre>
 yum install git gcc autoconf libtool automake make zlib-devel openssl-devel asciidoc xmlto 
-yum install git gcc autoconf libtool automake make zlib-devel mbedtls-devel pcre-devel asciidoc xmlto
+#  yum install git gcc autoconf libtool automake make zlib-devel mbedtls-devel pcre-devel asciidoc xmlto
 git clone https://github.com/shadowsocks/shadowsocks-libev.git
 cd shadowsocks-libev
 ./configure --disable-documentation && make
-./configure --disable-documentation --with-crypto-library=mbedtls --with-mbedtls=/usr/include/mbedtls && make
+#  ./configure --disable-documentation --with-crypto-library=mbedtls --with-mbedtls=/usr/include/mbedtls && make
 make install
 </pre>
 
@@ -36,7 +36,7 @@ server-multi-port.json
 </pre>
 ### Run server-multi-port
 <pre>
-nohup ss-manager --manager-address /var/run/shadowsocks-manager.sock -A -c "server-multi-port.json" &
+nohup ss-manager --manager-address /var/run/shadowsocks-manager.sock -A -c /server-multi-port.json &
 </pre>
 # Iptables
 安装iptables services
@@ -69,7 +69,7 @@ iptables -A FORWARD -m string --hex-string "|13426974546f7272656e742070726f746f6
 Iptables rules for SHADOWSOCKS
 <pre>
 iptables -N SHADOWSOCKS
-iptables -t filter -I SHADOWSOCKS -p tcp --syn -m connlimit --connlimit-above 32 -j REJECT --reject-with tcp-reset
+iptables -t filter -I SHADOWSOCKS -p tcp --syn -m connlimit --connlimit-above 40 -j REJECT --reject-with tcp-reset
 iptables -t filter -A SHADOWSOCKS -d 127.0.0.0/8 -j REJECT
 iptables -t filter -A SHADOWSOCKS -d 0.0.0.0/8 -j REJECT
 iptables -t filter -A SHADOWSOCKS -d 10.0.0.0/8 -j REJECT
@@ -100,7 +100,7 @@ systemctl enable iptables.service
 <pre>
 nohup kcptun -t 127.0.0.1:443 -l :1234 -mode normal -crypt none -nocomp -dscp 46 -parityshard 0 -sndwnd 300 -rcvwnd 300 &
 nohup ss-server -s 127.0.0.1 -p 443 -k password -m rc4-md5 -A -v >>/root/ss-443.log 2>&1 &
-### kcptun iptables rules
+### Iptables rules for kcptun
 iptables -t filter -I SHADOWSOCKS -p tcp -d 127.0.0.1 --dport 443 -j ACCEPT
 iptables -t filter -I SHADOWSOCKS -p tcp -d 127.0.0.1 --sport 443 -j ACCEPT
 </pre>
