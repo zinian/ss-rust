@@ -111,6 +111,16 @@ iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p tcp -j REJ
 iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p udp -j REJECT
 iptables -A OUTPUT -j SHADOWSOCKS
 ```
+### kcptun
+```
+nohup kcptun -t 127.0.0.1:443 -l :1234 -mode normal -crypt none -nocomp -dscp 46 -parityshard 0 -sndwnd 300 -rcvwnd 300 &
+nohup ss-server -s 127.0.0.1 -p 443 -k password -m rc4-md5 -A -v >>/root/ss-443.log 2>&1 &
+```
+#### Iptables rules for kcptun
+```
+iptables -t filter -m owner --uid-owner shadowsocks -I SHADOWSOCKS -p tcp -s 127.0.0.1 -d 127.0.0.1 --sport 443 -j ACCEPT
+iptables -t filter -m owner --uid-owner shadowsocks -I SHADOWSOCKS -p tcp -s 127.0.0.1 -d 127.0.0.1 --dport 443 -j ACCEPT
+```
 ## iptables save
 <pre>
 service iptables save
@@ -119,3 +129,4 @@ service iptables stop
 service iptables restart
 systemctl enable iptables.service
 </pre>
+
