@@ -18,7 +18,7 @@ make install
 
 ## Run with log
 <pre>
-nohup ss-server -p 443 -k password -m rc4-md5 -A -a shadowsocks -v >>/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
+nohup ss-server -p 443 -k password -m rc4-md5 -A -a shadowsocks -v >>/tmp/ss-443.log 2>&1 &
 </pre>
 
 ## Server-multi-port
@@ -36,7 +36,7 @@ server-multi-port.json
 </pre>
 ### Run server-multi-port
 <pre>
-nohup ss-manager --manager-address /var/run/shadowsocks-manager.sock -A -u -a shadowsocks -n 51200 -c "server-multi-port.json" &
+nohup ss-manager --manager-address /var/run/shadowsocks-manager.sock -A -c "server-multi-port.json" &
 </pre>
 # Iptables
 安装iptables services
@@ -67,30 +67,24 @@ iptables -A FORWARD -m string --string "GET /scrape.php?passkey=" --algo bm --to
 iptables -A FORWARD -m string --hex-string "|13426974546f7272656e742070726f746f636f6c|" --algo bm --to 65535 -j DROP
 </pre>
 Iptables rules for SHADOWSOCKS
-
-centos 创建一个安全用户
-<pre>
-useradd -s /usr/sbin/nologin -r -m -d /shadowsocks shadowsocks
-nohup ss-manager --manager-address /shadowsocks/shadowsocks-manager.sock -A -u -a shadowsocks  -c /shadowsocks/ss-libev.json &
-</pre>
 <pre>
 iptables -N SHADOWSOCKS
-iptables -t filter -m owner --uid-owner shadowsocks -I SHADOWSOCKS -p tcp --syn -m connlimit --connlimit-above 32 -j REJECT --reject-with tcp-reset
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 127.0.0.0/8 -j REJECT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 0.0.0.0/8 -j REJECT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 10.0.0.0/8 -j REJECT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 169.254.0.0/16 -j REJECT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 172.16.0.0/12 -j REJECT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 192.168.0.0/16 -j REJECT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 224.0.0.0/4 -j REJECT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 240.0.0.0/4 -j REJECT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p udp --dport 53 -j ACCEPT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p tcp --dport 53 -j ACCEPT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p tcp --dport 80 -j ACCEPT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p tcp --dport 443 -j ACCEPT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -m state --state ESTABLISHED,RELATED -j ACCEPT
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p tcp -j REJECT --reject-with tcp-reset
-iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p udp -j REJECT
+iptables -t filter -I SHADOWSOCKS -p tcp --syn -m connlimit --connlimit-above 32 -j REJECT --reject-with tcp-reset
+iptables -t filter -A SHADOWSOCKS -d 127.0.0.0/8 -j REJECT
+iptables -t filter -A SHADOWSOCKS -d 0.0.0.0/8 -j REJECT
+iptables -t filter -A SHADOWSOCKS -d 10.0.0.0/8 -j REJECT
+iptables -t filter -A SHADOWSOCKS -d 169.254.0.0/16 -j REJECT
+iptables -t filter -A SHADOWSOCKS -d 172.16.0.0/12 -j REJECT
+iptables -t filter -A SHADOWSOCKS -d 192.168.0.0/16 -j REJECT
+iptables -t filter -A SHADOWSOCKS -d 224.0.0.0/4 -j REJECT
+iptables -t filter -A SHADOWSOCKS -d 240.0.0.0/4 -j REJECT
+iptables -t filter -A SHADOWSOCKS -p udp --dport 53 -j ACCEPT
+iptables -t filter -A SHADOWSOCKS -p tcp --dport 53 -j ACCEPT
+iptables -t filter -A SHADOWSOCKS -p tcp --dport 80 -j ACCEPT
+iptables -t filter -A SHADOWSOCKS -p tcp --dport 443 -j ACCEPT
+iptables -t filter -A SHADOWSOCKS -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -t filter -A SHADOWSOCKS -p tcp -j REJECT --reject-with tcp-reset
+iptables -t filter -A SHADOWSOCKS -p udp -j REJECT
 iptables -A OUTPUT -j SHADOWSOCKS
 </pre>
 </pre>
@@ -102,9 +96,11 @@ service iptables stop
 service iptables restart
 systemctl enable iptables.service
 </pre>
-##TC
+## kcptun
 <pre>
-tc qdisc del dev venet0 root
-tc qdisc add dev venet0 root tbf rate 5120kbit burst 32kb latency 100ms
-tc -s qdisc ls dev venet0
+nohup kcptun -t 127.0.0.1:443 -l :1234 -mode normal -crypt none -nocomp -dscp 46 -parityshard 0 -sndwnd 300 -rcvwnd 300 &
+nohup ss-server -s 127.0.0.1 -p 443 -k password -m rc4-md5 -A -v >>/root/ss-443.log 2>&1 &
+### kcptun iptables rules
+iptables -t filter -I SHADOWSOCKS -p tcp -d 127.0.0.1 --dport 443 -j ACCEPT
+iptables -t filter -I SHADOWSOCKS -p tcp -d 127.0.0.1 --sport 443 -j ACCEPT
 </pre>
