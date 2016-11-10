@@ -8,7 +8,7 @@ yum update
 编译shadowsocks-libev
 <pre>
 yum install git gcc autoconf libtool automake make zlib-devel openssl-devel asciidoc xmlto 
-yum install git gcc autoconf libtool automake make zlib-devel mbedtls-devel asciidoc xmlto
+yum install git gcc autoconf libtool automake make zlib-devel mbedtls-devel pcre-devel asciidoc xmlto
 git clone https://github.com/shadowsocks/shadowsocks-libev.git
 cd shadowsocks-libev
 ./configure --disable-documentation && make
