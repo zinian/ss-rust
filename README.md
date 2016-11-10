@@ -2,21 +2,23 @@
 Operating system:	Centos 7 x86_64 minimal  
 系统升级
 <pre>
-yum install deltarpm
+yum install deltarpm epel-release
 yum update 
 </pre>
 编译shadowsocks-libev
 <pre>
 yum install git gcc autoconf libtool automake make zlib-devel openssl-devel asciidoc xmlto 
+yum install git gcc autoconf libtool automake make zlib-devel mbedtls-devel asciidoc xmlto
 git clone https://github.com/shadowsocks/shadowsocks-libev.git
 cd shadowsocks-libev
 ./configure --disable-documentation && make
+./configure --disable-documentation --with-crypto-library=mbedtls --with-mbedtls=/usr/include/mbedtls && make
 make install
 </pre>
 
 ## Run with log
 <pre>
-nohup ss-server -p `SPORT` -k password -m chacha20 -a nobody -n 51200 -A -u -a shadowsocks -v >/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
+nohup ss-server -p `SPORT` -k password -m chacha20 -a nobody -n 51200 -A -u -a shadowsocks -v >>/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
 </pre>
 
 ## Server-multi-port
