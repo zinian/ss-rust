@@ -119,7 +119,6 @@ nohup ss-server -s 127.0.0.1 -p 443 -k password -m rc4-md5 -A -v >>/root/ss-443.
 #### Iptables rules for kcptun
 ```
 iptables -t filter -m owner --uid-owner shadowsocks -I SHADOWSOCKS -p tcp -s 127.0.0.1 -d 127.0.0.1 --sport 443 -j ACCEPT
-iptables -t filter -m owner --uid-owner shadowsocks -I SHADOWSOCKS -p tcp -s 127.0.0.1 -d 127.0.0.1 --dport 443 -j ACCEPT
 ```
 ## iptables save
 <pre>
