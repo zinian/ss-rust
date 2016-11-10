@@ -87,7 +87,30 @@ iptables -t filter -A SHADOWSOCKS -p tcp -j REJECT --reject-with tcp-reset
 iptables -t filter -A SHADOWSOCKS -p udp -j REJECT
 iptables -A OUTPUT -j SHADOWSOCKS
 </pre>
-</pre>
+### Run as user
+```
+useradd -s /usr/sbin/nologin -r -m -d /shadowsocks shadowsocks
+```
+```
+iptables -N SHADOWSOCKS
+iptables -t filter -m owner --uid-owner shadowsocks -I SHADOWSOCKS -p tcp --syn -m connlimit --connlimit-above 32 -j REJECT --reject-with tcp-reset
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 127.0.0.0/8 -j REJECT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 0.0.0.0/8 -j REJECT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 10.0.0.0/8 -j REJECT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 169.254.0.0/16 -j REJECT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 172.16.0.0/12 -j REJECT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 192.168.0.0/16 -j REJECT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 224.0.0.0/4 -j REJECT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -d 240.0.0.0/4 -j REJECT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p udp --dport 53 -j ACCEPT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p tcp --dport 53 -j ACCEPT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p tcp --dport 80 -j ACCEPT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p tcp --dport 443 -j ACCEPT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p tcp -j REJECT --reject-with tcp-reset
+iptables -t filter -m owner --uid-owner shadowsocks -A SHADOWSOCKS -p udp -j REJECT
+iptables -A OUTPUT -j SHADOWSOCKS
+```
 ## iptables save
 <pre>
 service iptables save
