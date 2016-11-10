@@ -1,11 +1,11 @@
 # Shadowsocks-libev
 Operating system:	Centos 7 x86_64 minimal  
-系统升级
+## 系统升级
 <pre>
 yum install deltarpm epel-release
 yum update 
 </pre>
-编译shadowsocks-libev
+## 编译shadowsocks-libev
 <pre>
 yum install git gcc autoconf libtool automake make zlib-devel openssl-devel asciidoc xmlto 
 #  yum install git gcc autoconf libtool automake make zlib-devel mbedtls-devel pcre-devel asciidoc xmlto
@@ -39,11 +39,11 @@ server-multi-port.json
 nohup ss-manager --manager-address /var/run/shadowsocks-manager.sock -A -c /server-multi-port.json &
 </pre>
 # Iptables
-安装iptables services
+## 安装iptables services
 <pre>
 yum install net-tools iptables-services policycoreutils
 </pre>
-清除 iptables 规则
+## 清除 iptables 规则
 <pre>
 iptables -t filter -F
 iptables -t filter -X
@@ -58,7 +58,7 @@ iptables -t raw -F
 iptables -t raw -X
 iptables -t raw -Z
 </pre>
-禁止BT
+## 禁止BT
 <pre>
 iptables -A FORWARD -m string --string "GET /scrape?info_hash=" --algo bm --to 65535 -j DROP
 iptables -A FORWARD -m string --string "GET /announce.php?info_hash=" --algo bm --to 65535 -j DROP
@@ -66,7 +66,7 @@ iptables -A FORWARD -m string --string "GET /scrape.php?info_hash=" --algo bm --
 iptables -A FORWARD -m string --string "GET /scrape.php?passkey=" --algo bm --to 65535 -j DROP
 iptables -A FORWARD -m string --hex-string "|13426974546f7272656e742070726f746f636f6c|" --algo bm --to 65535 -j DROP
 </pre>
-Iptables rules for SHADOWSOCKS
+## Iptables rules for SHADOWSOCKS
 <pre>
 iptables -N SHADOWSOCKS
 iptables -t filter -I SHADOWSOCKS -p tcp --syn -m connlimit --connlimit-above 40 -j REJECT --reject-with tcp-reset
@@ -100,7 +100,9 @@ systemctl enable iptables.service
 <pre>
 nohup kcptun -t 127.0.0.1:443 -l :1234 -mode normal -crypt none -nocomp -dscp 46 -parityshard 0 -sndwnd 300 -rcvwnd 300 &
 nohup ss-server -s 127.0.0.1 -p 443 -k password -m rc4-md5 -A -v >>/root/ss-443.log 2>&1 &
+</pre>
 ### Iptables rules for kcptun
+<pre>
 iptables -t filter -I SHADOWSOCKS -p tcp -d 127.0.0.1 --dport 443 -j ACCEPT
 iptables -t filter -I SHADOWSOCKS -p tcp -d 127.0.0.1 --sport 443 -j ACCEPT
 </pre>
