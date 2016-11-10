@@ -18,7 +18,7 @@ make install
 
 ## Run with log
 <pre>
-nohup ss-server -p `SPORT` -k password -m chacha20 -a nobody -n 51200 -A -u -a shadowsocks -v >>/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
+nohup ss-server -p 443 -k password -m rc4-md5 -A -a shadowsocks -v >>/tmp/443-$(date "+%Y%m%d_%H%M%S").log 2>&1 &
 </pre>
 
 ## Server-multi-port
