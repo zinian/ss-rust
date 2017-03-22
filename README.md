@@ -1,11 +1,11 @@
 # Shadowsocks-libev
 Operating system:	Centos 7 x86_64 minimal  
 # 系统升级
+
 ```
 yum install deltarpm epel-release
 yum update
-yum install git gettext gcc autoconf libtool automake make asciidoc xmlto udns-devel libev-devel
-yum install net-tools iptables-services policycoreutils
+yum install git net-tools iptables-services policycoreutils gettext gcc autoconf libtool automake make asciidoc xmlto udns-devel libev-devel pcre-devel
 ```
 
 # Installation of Libsodium
@@ -39,6 +39,8 @@ cd shadowsocks-libev
 git submodule update --init --recursive
 ./autogen.sh && ./configure --disable-documentation && make
 make install
+popd
+ldconfig
 ```
 
 ## Run with log
