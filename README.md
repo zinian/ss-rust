@@ -47,7 +47,10 @@ ldconfig
 <pre>
 nohup ss-server -p 443 -k password -m rc4-md5 -A -a shadowsocks -v >>/tmp/ss-443.log 2>&1 &
 </pre>
-
+# 关闭111端口
+```
+chkconfig rpcbind off
+```
 ## Server-multi-port
 
 server-multi-port.json
