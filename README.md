@@ -1,20 +1,45 @@
 # Shadowsocks-libev
 Operating system:	Centos 7 x86_64 minimal  
-## 系统升级
-<pre>
+# 系统升级
+```
 yum install deltarpm epel-release
-yum update 
-</pre>
-## 编译shadowsocks-libev
-<pre>
-yum install git gcc autoconf libtool automake make zlib-devel openssl-devel asciidoc xmlto 
-#  yum install git gcc autoconf libtool automake make zlib-devel mbedtls-devel pcre-devel asciidoc xmlto
+yum update
+yum install git gettext gcc autoconf libtool automake make asciidoc xmlto udns-devel libev-devel
+yum install net-tools iptables-services policycoreutils
+```
+
+# Installation of Libsodium
+
+```
+export LIBSODIUM_VER=1.0.12
+wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
+tar xvf libsodium-$LIBSODIUM_VER.tar.gz
+pushd libsodium-$LIBSODIUM_VER
+./configure --prefix=/usr && make
+make install
+popd
+ldconfig
+```
+# Installation of MbedTLS
+
+```
+export MBEDTLS_VER=2.4.2
+wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
+tar xvf mbedtls-$MBEDTLS_VER-gpl.tgz
+pushd mbedtls-$MBEDTLS_VER
+make SHARED=1 CFLAGS=-fPIC
+make DESTDIR=/usr install
+popd
+ldconfig
+```
+# Installation of Shadowsocks-libev
+```
 git clone https://github.com/shadowsocks/shadowsocks-libev.git
 cd shadowsocks-libev
-./configure --disable-documentation && make
-#  ./configure --disable-documentation --with-crypto-library=mbedtls --with-mbedtls=/usr/include/mbedtls && make
+git submodule update --init --recursive
+./autogen.sh && ./configure --disable-documentation && make
 make install
-</pre>
+```
 
 ## Run with log
 <pre>
