@@ -1,4 +1,3 @@
-
 #!/bin/bash
 yum -y install deltarpm epel-release
 yum clean all
