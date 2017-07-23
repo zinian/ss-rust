@@ -5,7 +5,7 @@ Operating system:	Centos 7 x86_64 minimal
 ```
 yum install deltarpm epel-release
 yum update
-yum install git net-tools iptables-services policycoreutils gettext gcc autoconf libtool automake make udns-devel libev-devel pcre-devel
+yum install net-tools git wget gettext gcc autoconf libtool automake make udns-devel libev-devel pcre-devel
 ```
 
 # Installation of Libsodium
@@ -71,7 +71,7 @@ nohup ss-manager --manager-address /var/run/shadowsocks-manager.sock -A -c /serv
 # Iptables
 ## 安装iptables services
 <pre>
-yum install net-tools iptables-services policycoreutils
+yum install iptables-services policycoreutils
 </pre>
 ## 清除 iptables 规则
 <pre>
