@@ -39,8 +39,15 @@ cd shadowsocks-libev
 git submodule update --init --recursive
 ./autogen.sh && ./configure --disable-documentation && make
 make install
-popd
-ldconfig
+```
+# simple-obfs
+```
+git clone https://github.com/shadowsocks/simple-obfs.git
+cd simple-obfs
+git submodule update --init --recursive
+./autogen.sh
+./configure --disable-documentation && make
+make install
 ```
 
 ## Run with log
