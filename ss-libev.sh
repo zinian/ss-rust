@@ -4,7 +4,7 @@ yum clean all
 yum  -y update
 yum -y install git net-tools iptables-services policycoreutils gettext gcc autoconf libtool automake make asciidoc xmlto udns-devel libev-devel pcre-devel
 #libsodium
-export LIBSODIUM_VER=1.0.13
+export LIBSODIUM_VER=1.0.16
 wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
 tar xvf libsodium-$LIBSODIUM_VER.tar.gz
 pushd libsodium-$LIBSODIUM_VER
@@ -14,7 +14,7 @@ popd
 ldconfig
 rm -rf libsodium-$LIBSODIUM_VER.tar.gz libsodium-$LIBSODIUM_VER
 #mbedtls
-export MBEDTLS_VER=2.5.1
+export MBEDTLS_VER=2.9.0
 wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
 tar xvf mbedtls-$MBEDTLS_VER-gpl.tgz
 pushd mbedtls-$MBEDTLS_VER
