@@ -11,7 +11,7 @@ yum install net-tools git wget gettext gcc autoconf libtool automake make c-ares
 # Installation of Libsodium
 
 ```
-export LIBSODIUM_VER=1.0.16
+export LIBSODIUM_VER=1.0.17
 wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
 tar xvf libsodium-$LIBSODIUM_VER.tar.gz
 pushd libsodium-$LIBSODIUM_VER
@@ -23,7 +23,7 @@ ldconfig
 # Installation of MbedTLS
 
 ```
-export MBEDTLS_VER=2.9.0
+export MBEDTLS_VER=2.16.0
 wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
 tar xvf mbedtls-$MBEDTLS_VER-gpl.tgz
 pushd mbedtls-$MBEDTLS_VER
@@ -40,16 +40,6 @@ git submodule update --init --recursive
 ./autogen.sh && ./configure --disable-documentation && make
 make install
 ```
-# simple-obfs
-```
-git clone https://github.com/shadowsocks/simple-obfs.git
-cd simple-obfs
-git submodule update --init --recursive
-./autogen.sh
-./configure --disable-documentation && make
-make install
-```
-
 ## Run with log
 <pre>
 nohup ss-server -p 443 -k password -m rc4-md5 -A -a shadowsocks -v >>/tmp/ss-443.log 2>&1 &
