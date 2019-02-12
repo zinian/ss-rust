@@ -42,11 +42,12 @@ make install
 ```
 ## Run with log
 <pre>
-nohup ss-server -p 443 -k password -m rc4-md5 -A -a shadowsocks -v >>/tmp/ss-443.log 2>&1 &
+nohup ss-server -p 443 -k password -m chacha20 -u -v >>/tmp/ss-443.log 2>&1 &
 </pre>
 # 关闭111端口
 ```
 chkconfig rpcbind off
+systemctl disable rpcbind.service
 ```
 ## Server-multi-port
 
