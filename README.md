@@ -27,7 +27,7 @@ export MBEDTLS_VER=2.16.1
 wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
 tar xvf mbedtls-$MBEDTLS_VER-gpl.tgz
 pushd mbedtls-$MBEDTLS_VER
-make SHARED=1 CFLAGS=-fPIC
+make SHARED=1 CFLAGS="-O2 -fPIC"
 make DESTDIR=/usr install
 popd
 ldconfig
