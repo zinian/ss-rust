@@ -1,5 +1,5 @@
 # Shadowsocks-libev
-Operating system:	Centos 7 x86_64 minimal  
+Operating system:	Centos 8 x86_64 minimal  
 # 系统升级
 
 ```
@@ -40,10 +40,12 @@ git submodule update --init --recursive
 ./autogen.sh && ./configure --disable-documentation && make
 make install
 ```
-## Run with log
+## Run 
 <pre>
-nohup ss-server -p 443 -k password -m chacha20 -u -v >>/tmp/ss-443.log 2>&1 &
+chmod +x /etc/rc.d/rc.local
+echo "nohup ss-server -p 443 -k password -m rc4-md5 -u &" >> /etc/rc.d/rc.local
 </pre>
+
 # 关闭111端口
 ```
 chkconfig rpcbind off
