@@ -43,7 +43,7 @@ make install
 ## Run 
 <pre>
 chmod +x /etc/rc.d/rc.local
-echo "nohup ss-server -p 443 -k password -m rc4-md5 -u &" >> /etc/rc.d/rc.local
+echo "nohup ss-server -p 443 -k password -m aes-128-gcm -u &" >> /etc/rc.d/rc.local
 </pre>
 
 # 关闭111端口
