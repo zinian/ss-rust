@@ -12,9 +12,9 @@ yum install net-tools git wget gettext gcc autoconf libtool automake make c-ares
 
 ```
 export LIBSODIUM_VER=1.0.18
-wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER.tar.gz
-tar xvf libsodium-$LIBSODIUM_VER.tar.gz
-pushd libsodium-$LIBSODIUM_VER
+wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER-stable.tar.gz
+tar xvf libsodium-$LIBSODIUM_VER-stable.tar.gz
+pushd libsodium-$LIBSODIUM_VER-stable
 ./configure --prefix=/usr && make
 make install
 popd
