@@ -11,9 +11,9 @@ yum install net-tools git wget gettext gcc autoconf libtool automake make c-ares
 # Installation of Libsodium
 
 ```
-export LIBSODIUM_VER=1.0.18
-wget https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VER-stable.tar.gz
-tar xvf libsodium-$LIBSODIUM_VER-stable.tar.gz
+export LIBSODIUM_VER=LATEST   
+wget https://download.libsodium.org/libsodium/releases/$LIBSODIUM_VER.tar.gz
+tar xvf $LIBSODIUM_VER.tar.gz 
 pushd libsodium-stable
 ./configure --prefix=/usr && make
 make install
@@ -23,7 +23,7 @@ ldconfig
 # Installation of MbedTLS
 
 ```
-export MBEDTLS_VER=2.16.6
+export MBEDTLS_VER=2.25.0
 wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
 tar xvf mbedtls-$MBEDTLS_VER-gpl.tgz
 pushd mbedtls-$MBEDTLS_VER
