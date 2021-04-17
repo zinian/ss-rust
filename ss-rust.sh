@@ -11,7 +11,7 @@ if [ $V2_Y == "y" ];then
   wget https://github.com/shadowsocks/v2ray-plugin/releases/download/$V2rayP_VER/v2ray-plugin-linux-amd64-$V2rayP_VER.tar.gz && tar -xvf  v2ray-plugin-linux-amd64-$V2rayP_VER.tar.gz -C /usr/local/bin && rm -rf v2ray-plugin-linux-amd64-$V2rayP_VER.tar.gz && mv /usr/local/bin/v2ray-plugin_linux_amd64 /usr/local/bin/v2ray-plugin
 fi
 
-if [ [ $SS_Y == "y" ] || [$V2_Y == "y"] ];then
+if [ [ $SS_Y == "y"  || $V2_Y == "y"]];then
   systemctl restart rc-local
 fi
 
