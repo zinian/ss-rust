@@ -1,5 +1,5 @@
 # Shadowsocks-Rust
-Operating system:	Centos 8 x86_64 minimal
+Operating system:	Centos 8 x86_64 
 
 # PowerShell SSH
 
@@ -83,7 +83,7 @@ systemctl status rc-local
 systemctl enable crond
 systemctl start crond
 crontab -e
-* */12 * * * root systemctl restart rc-local >> /dev/null
+* */12 * * * systemctl restart rc-local >> /dev/null
 systemctl restart crond
 systemctl status crond
 ···
