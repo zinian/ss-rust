@@ -85,9 +85,8 @@ crontab -e
 * */12 * * * systemctl restart rc-local >> /dev/null
 systemctl restart crond
 systemctl status crond
-···
-
-# update 
+```
+# crontab
 ```
 rm -rf /root/ss-rust.sh
 wget https://github.com/zinian/ss-rust/raw/master/ss-rust.sh
