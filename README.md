@@ -1,6 +1,6 @@
 # Shadowsocks-libev
 Operating system:	Centos 8 x86_64 minimal  
-# 系统升级
+# System Update
 ```
 yum install deltarpm epel-release
 yum update
@@ -46,7 +46,7 @@ systemctl restart rc-local
 ```
 </pre>
 
-# 定时重启
+# crontab
 ```
 systemctl enable crond
 systemctl start crond
