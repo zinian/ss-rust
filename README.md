@@ -58,8 +58,7 @@ mv /usr/local/bin/v2ray-plugin_linux_amd64 /usr/local/bin/v2ray-plugin
 ## Run
 
 ```
-chmod +x /etc/rc.d/rc.local
-chmod +x /etc/rc.local
+chmod 755 /etc/rc.d/rc.local
 
 echo "" >> /usr/lib/systemd/system/rc-local.service
 echo "[Install]" >> /usr/lib/systemd/system/rc-local.service
