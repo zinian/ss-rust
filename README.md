@@ -19,7 +19,7 @@ export CF_Email="cf_email"
 export SS_VER="v1.10.6"
 wget https://github.com/shadowsocks/shadowsocks-rust/releases/download/$SS_VER/shadowsocks-$SS_VER.x86_64-unknown-linux-gnu.tar.xz
 tar -xvJf  shadowsocks-$SS_VER.x86_64-unknown-linux-gnu.tar.xz  -C /usr/local/bin
-popd
+rm -rf shadowsocks-$SS_VER.x86_64-unknown-linux-gnu.tar.xz
 ldconfig
 ```
 # Installation of v2ray-plugin
@@ -27,12 +27,11 @@ ldconfig
 export V2rayP_VER="v1.3.1"
 wget https://github.com/shadowsocks/v2ray-plugin/releases/download/$V2rayP_VER/v2ray-plugin-linux-amd64-$V2rayP_VER.tar.gz
 tar -xvf  shadowsocks-$V2rayP_VER.x86_64-unknown-linux-gnu.tar.xz  -C /usr/local/bin
+rm -rf shadowsocks-$V2rayP_VER.x86_64-unknown-linux-gnu.tar.xz
 mv /usr/local/bin/v2ray-plugin_linux_amd64 /usr/local/bin/v2ray-plugin
-popd
 ldconfig
 ```
 ## Run
-<pre>
 ```
 chmod +x /etc/rc.d/rc.local
 chmod +x /etc/rc.local
@@ -43,7 +42,6 @@ echo "nohup ssserver -U -s "443" -m "aes-128-gcm" -k "password" --plugin "v2ray-
 echo "nohup ssserver -s "443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "server;mode=quic;host=github.com" &" >> /etc/rc.d/rc.local
 systemctl restart rc-local
 ```
-</pre>
 
 # crontab
 ```
