@@ -41,12 +41,16 @@ echo "nohup ssserver -U -s "443" -m "aes-128-gcm" -k "password" --plugin "v2ray-
 echo "nohup ssserver -U -s "443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "server;tls;host=github.com" &" >> /etc/rc.d/rc.local
 echo "nohup ssserver -s "443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "server;mode=quic;host=github.com" &" >> /etc/rc.d/rc.local
 systemctl restart rc-local
+systemctl status rc-local
 ```
 
 # crontab
 ```
 systemctl enable crond
 systemctl start crond
+crontab -e
 echo "* */12 * * * root systemctl restart rc-local" >> /etc/crontab
 systemctl restart crond
+
+systemctl status crond
 ···
