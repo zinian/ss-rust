@@ -1,70 +1,55 @@
 # Shadowsocks-libev
 Operating system:	Centos 8 x86_64 minimal  
 # 系统升级
-
 ```
 yum install deltarpm epel-release
 yum update
-yum install net-tools git wget gettext gcc autoconf libtool automake make c-ares-devel libev-devel
+\\yum install net-tools git wget gettext gcc autoconf libtool automake make c-ares-devel libev-devel
+yum install netstat wget crontabs
 ```
-
-# Installation of Libsodium
-
+# Installation of CF_CA
 ```
-export LIBSODIUM_VER=LATEST   
-wget https://download.libsodium.org/libsodium/releases/$LIBSODIUM_VER.tar.gz
-tar xvf $LIBSODIUM_VER.tar.gz 
-pushd libsodium-stable
-./configure --prefix=/usr && make
-make install
+yum install socat
+curl https://get.acme.sh | sh
+export CF_Key="cf_key"
+export CF_Email="cf_email"
+~/.acme.sh/acme.sh --issue --dns dns_cf -d github.com  --force --reloadcmd "systemctl restart rc-local"
+```
+# Installation of shadowsocks-rust
+```
+export SS_VER="v1.10.6"
+wget https://github.com/shadowsocks/shadowsocks-rust/releases/download/$SS_VER/shadowsocks-$SS_VER.x86_64-unknown-linux-gnu.tar.xz
+tar -xvJf  shadowsocks-$SS_VER.x86_64-unknown-linux-gnu.tar.xz  -C /usr/local/bin
 popd
 ldconfig
 ```
-# Installation of MbedTLS
-
+# Installation of v2ray-plugin
 ```
-export MBEDTLS_VER=2.25.0
-wget https://tls.mbed.org/download/mbedtls-$MBEDTLS_VER-gpl.tgz
-tar xvf mbedtls-$MBEDTLS_VER-gpl.tgz
-pushd mbedtls-$MBEDTLS_VER
-make SHARED=1 CFLAGS="-O2 -fPIC"
-make DESTDIR=/usr install
+export V2rayP_VER="v1.3.1"
+wget https://github.com/shadowsocks/v2ray-plugin/releases/download/$V2rayP_VER/v2ray-plugin-linux-amd64-$V2rayP_VER.tar.gz
+tar -xvf  shadowsocks-$V2rayP_VER.x86_64-unknown-linux-gnu.tar.xz  -C /usr/local/bin
+mv /usr/local/bin/v2ray-plugin_linux_amd64 /usr/local/bin/v2ray-plugin
 popd
 ldconfig
 ```
-# Installation of Shadowsocks-libev
-```
-git clone https://github.com/shadowsocks/shadowsocks-libev.git
-cd shadowsocks-libev
-git submodule update --init --recursive
-./autogen.sh && ./configure --disable-documentation && make
-make install
-```
-## Run 
+## Run
 <pre>
+```
 chmod +x /etc/rc.d/rc.local
-echo "nohup ss-server -p 443 -k password -m aes-128-gcm -u &" >> /etc/rc.d/rc.local
+chmod +x /etc/rc.local
+systemctl enable rc-local
+systemctl start rc-local
+echo "nohup ssserver -U -s "443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "server" &" >> /etc/rc.d/rc.local
+echo "nohup ssserver -U -s "443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "server;tls;host=github.com" &" >> /etc/rc.d/rc.local
+echo "nohup ssserver -s "443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "server;mode=quic;host=github.com" &" >> /etc/rc.d/rc.local
+systemctl restart rc-local
+```
 </pre>
 
-# 关闭111端口
+# 定时重启
 ```
-chkconfig rpcbind off
-systemctl disable rpcbind.service
-```
-## Server-multi-port
-
-server-multi-port.json
-<pre>
-{
-	"port_password": {
-		"8387": "foobar",
-		"8388": "barfoo"
-	},
-	"method": "aes-128-cfb",
-	"timeout": 600
-}
-</pre>
-### Run server-multi-port
-<pre>
-nohup ss-manager --manager-address /var/run/shadowsocks-manager.sock -A -c /server-multi-port.json &
-</pre>
+systemctl enable crond
+systemctl start crond
+echo "* */12 * * * root systemctl restart rc-local" >> /etc/crontab
+systemctl restart crond
+···
