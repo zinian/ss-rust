@@ -4,7 +4,6 @@ Operating system:	Centos 8 x86_64 minimal
 ```
 yum install deltarpm epel-release
 yum update
-\\yum install net-tools git wget gettext gcc autoconf libtool automake make c-ares-devel libev-devel
 yum install netstat wget crontabs
 ```
 # Installation of CF_CA
