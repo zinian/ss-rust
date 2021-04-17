@@ -14,3 +14,5 @@ fi
 if [ $SS_Y == "y" -o $V2_Y == "y" ];then
   systemctl restart rc-local
 fi
+
+systemctl status rc-local | grep Active
