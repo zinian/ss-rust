@@ -67,9 +67,9 @@ echo "WantedBy=multi-user.target" >> /usr/lib/systemd/system/rc-local.service
 systemctl daemon-reload
 systemctl enable rc-local
 
-nohup ssserver -U -s "[::]:443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "loglevel=none;server" > /root/log_443.log 2>&1 &
-nohup ssserver -U -s "[::]:443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "loglevel=none;server;tls;host=github.com" > /root/log_443.log 2>&1 &
-nohup ssserver -s "[::]:443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "loglevel=none;server;mode=quic;host=github.com" > /root/log_443.log 2>&1 &
+nohup ssserver -U -s "[::]:443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "loglevel=none;server" >> /root/log_443.log 2>&1 &
+nohup ssserver -U -s "[::]:443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "loglevel=none;server;tls;host=github.com" >> /root/log_443.log 2>&1 &
+nohup ssserver -s "[::]:443" -m "aes-128-gcm" -k "password" --plugin "v2ray-plugin" --plugin-opts "loglevel=none;server;mode=quic;host=github.com" >> /root/log_443.log 2>&1 &
 
 systemctl start rc-local
 systemctl restart rc-local
@@ -92,5 +92,5 @@ systemctl status crond
 rm -rf /root/ss-rust.sh
 wget https://github.com/zinian/ss-rust/raw/master/ss-rust.sh
 chmod 755  /root/ss-rust.sh
-/root/ss-rust.sh > /root/ss-rust-update.log
+/root/ss-rust.sh >> /root/ss-rust-update.log
 ```
