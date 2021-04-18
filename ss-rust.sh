@@ -1,6 +1,6 @@
 #!/bin/bash
-export SS_VER=`curl  https://api.github.com/repos/shadowsocks/shadowsocks-rust/releases/latest | grep tag_name | sed 's/"/ /g' | awk ' {print $3}'`
-export V2_VER=`curl  https://api.github.com/repos/shadowsocks/v2ray-plugin/releases/latest | grep tag_name | sed 's/"/ /g' | awk ' {print $3}'`
+export SS_VER=`curl -s https://api.github.com/repos/shadowsocks/shadowsocks-rust/releases/latest | grep tag_name | sed 's/"/ /g' | awk ' {print $3}'`
+export V2_VER=`curl -s https://api.github.com/repos/shadowsocks/v2ray-plugin/releases/latest | grep tag_name | sed 's/"/ /g' | awk ' {print $3}'`
 ss_ver="v"`ssserver -V | awk ' {print $2}'`
 v2_ver=`v2ray-plugin -version | grep v2ray-plugin | awk ' {print $2}'`
 restart_rc="0"
