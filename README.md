@@ -83,6 +83,7 @@ systemctl enable crond
 systemctl start crond
 crontab -e
 * */12 * * * systemctl restart rc-local >> /dev/null
+* 0 * * * /root/ss-rust.sh > /root/ss-rust-update.log
 systemctl restart crond
 systemctl status crond
 ```
@@ -91,5 +92,5 @@ systemctl status crond
 rm -rf /root/ss-rust.sh
 wget https://github.com/zinian/ss-rust/raw/master/ss-rust.sh
 chmod 755  /root/ss-rust.sh
-/root/ss-rust.sh
+/root/ss-rust.sh > /root/ss-rust-update.log
 ```
