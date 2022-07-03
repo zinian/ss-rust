@@ -27,6 +27,52 @@ rpm -qa | grep kernel
 export KernelOld_VER="4.18.0-80"
 yum remove kernel*$KernelOld_VER*
 ```
+# Installation of Nginx
+
+```
+export  NGINX_VER=1.23.0
+curl -O https://nginx.org/download/nginx-$NGINX_VER.tar.gz
+tar xzvf nginx-$NGINX_VER.tar.gz
+cd nginx-$NGINX_VER
+
+./configure                                        \
+       --prefix=/root/nginx                        \
+       --sbin-path=/root/nginx/nginx               \
+       --conf-path=/root/nginx/nginx.conf          \
+       --pid-path=/root/nginx/nginx.pid            \
+       --error-log-path=/root/nginx/error.log      \
+       --with-http_ssl_module                      \
+       --with-http_v2_module 
+
+make 
+make install 
+
+vim  /lib/systemd/system/nginx.service 
+chmod 755 /lib/systemd/system/nginx.service 
+systemctl enable nginx.service
+systemctl restart nginx.service
+systemctl status nginx.service
+
+```
+## nginx.service 
+
+```
+[Unit]
+Description=nginx - high performance web server
+Documentation=http://nginx.org/en/docs/
+After=network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+PIDFile=/root/nginx/nginx.pid   
+ExecStart=/root/nginx/nginx   -c  /root/nginx/nginx-ss.conf
+ExecReload=/bin/sh -c "/bin/kill -s HUP $(/bin/cat /root/nginx/nginx.pid   )"
+ExecStop=/bin/sh -c "/bin/kill -s TERM $(/bin/cat /root/nginx/nginx.pid)"
+
+[Install]
+WantedBy=multi-user.target
+```
 # Installation of CF_CA
 
 ```
