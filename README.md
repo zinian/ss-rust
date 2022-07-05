@@ -27,6 +27,44 @@ rpm -qa | grep kernel
 export KernelOld_VER="4.18.0-80"
 yum remove kernel*$KernelOld_VER*
 ```
+
+# Installation of Nginx-quic
+##   install  boringssl
+```
+git clone https://github.com/google/boringssl.git
+cd boringssl
+mkdir build
+cd build
+cmake ../
+make
+cd ../..
+```
+## install nginx-quic
+```
+export  NGINX_VER=1.20.2
+curl -O https://hg.nginx.org/nginx-quic/archive/$NGINX_VER.tar.gz
+tar xzvf $NGINX_VER.tar.gz
+mv nginx-quic-$NGINX_VER nginx-quic-src
+cd nginx-quic-src
+
+./auto/configure	                              \
+       --prefix=/root/nginx-quic                     \
+       --sbin-path=/root/nginx-quic/nginx                  \
+       --conf-path=/root/nginx-quic/nginx.conf                  \
+       --pid-path=/root/nginx-quic/nginx.pid                  \
+       --error-log-path=/root/nginx-quic/error.log                  \
+       --with-http_ssl_module                  \
+       --with-http_v2_module  		\
+       --with-http_v3_module \
+       --with-cc-opt="-I../boringssl/include" \
+                       --with-ld-opt="-L../boringssl/build/ssl \
+                       -L../boringssl/build/crypto" 
+                       
+make 
+make install                        
+                       
+
+```
 # Installation of Nginx
 
 ```
