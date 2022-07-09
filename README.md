@@ -112,7 +112,7 @@ PIDFile=/root/nginx/nginx.pid
 ExecStart=/root/nginx/nginx   -c  /root/nginx/nginx-ss.conf
 ExecReload=/bin/sh -c "/bin/kill -s HUP $(/bin/cat /root/nginx/nginx.pid   )"
 ExecStop=/bin/sh -c "/bin/kill -s TERM $(/bin/cat /root/nginx/nginx.pid)"
-
+ExecStartPost=/bin/sleep 0.1
 [Install]
 WantedBy=multi-user.target
 ```
