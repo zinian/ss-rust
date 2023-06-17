@@ -41,7 +41,7 @@ cd ../..
 ```
 ## install nginx-quic
 ```
-export  NGINX_VER=1.23.4
+export  NGINX_VER=1.25.1
 curl -O https://hg.nginx.org/nginx-quic/archive/$NGINX_VER.tar.gz
 tar xzvf $NGINX_VER.tar.gz
 mv nginx-quic-$NGINX_VER nginx-quic-src
