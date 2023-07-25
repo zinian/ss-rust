@@ -27,6 +27,16 @@ rpm -qa | grep kernel
 export KernelOld_VER="4.18.0-80"
 yum remove kernel*$KernelOld_VER*
 ```
+# Installation of Boringssl
+```
+git clone https://github.com/google/boringssl.git
+cd boringssl
+mkdir build
+cd build
+cmake ../
+make
+cd ../..
+```
 
 # Installation of Nginx
 
