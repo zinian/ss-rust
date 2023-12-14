@@ -27,21 +27,11 @@ rpm -qa | grep kernel
 export KernelOld_VER="4.18.0-80"
 yum remove kernel*$KernelOld_VER*
 ```
-# Installation of Boringssl
-```
-git clone https://github.com/google/boringssl.git
-cd boringssl
-mkdir build
-cd build
-cmake ../
-make
-cd ../..
-```
 
 # Installation of Nginx
 
 ```
-export  NGINX_VER=1.23.4
+export  NGINX_VER=1.25.3
 curl -O https://nginx.org/download/nginx-$NGINX_VER.tar.gz
 tar xzvf nginx-$NGINX_VER.tar.gz
 cd nginx-$NGINX_VER
@@ -96,32 +86,13 @@ export CF_Email="cf_email"
 # Installation of shadowsocks-rust
 
 ```
-export SS_VER="v1.15.3"
+export SS_VER="v1.17.1"
 wget https://github.com/shadowsocks/shadowsocks-rust/releases/download/$SS_VER/shadowsocks-$SS_VER.x86_64-unknown-linux-gnu.tar.xz
 tar -xvJf  shadowsocks-$SS_VER.x86_64-unknown-linux-gnu.tar.xz  -C /usr/local/bin
 rm -rf shadowsocks-$SS_VER.x86_64-unknown-linux-gnu.tar.xz
 
 ```
-# Installation of v2ray-plugin
 
-```
-export V2rayP_VER="v1.3.2"
-wget https://github.com/shadowsocks/v2ray-plugin/releases/download/$V2rayP_VER/v2ray-plugin-linux-amd64-$V2rayP_VER.tar.gz
-tar -xvf  v2ray-plugin-linux-amd64-$V2rayP_VER.tar.gz -C /usr/local/bin
-rm -rf v2ray-plugin-linux-amd64-$V2rayP_VER.tar.gz
-mv /usr/local/bin/v2ray-plugin_linux_amd64 /usr/local/bin/v2ray-plugin
-
-```
-# Installation of v2ray-plugin
-
-```
-export V2rayP_VER="v5.7.0"
-wget https://github.com/teddysun/v2ray-plugin/releases/download/$V2rayP_VER/v2ray-plugin-linux-amd64-$V2rayP_VER.tar.gz
-tar -xvf  v2ray-plugin-linux-amd64-$V2rayP_VER.tar.gz -C /usr/local/bin
-rm -rf v2ray-plugin-linux-amd64-$V2rayP_VER.tar.gz
-mv /usr/local/bin/v2ray-plugin_linux_amd64 /usr/local/bin/v2ray-plugin
-
-```
 ## Run
 
 ```
