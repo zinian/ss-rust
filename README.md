@@ -31,7 +31,7 @@ yum remove kernel*$KernelOld_VER*
 # Installation of Nginx
 
 ```
-export  NGINX_VER=1.25.3
+export  NGINX_VER=1.26.0
 curl -O https://nginx.org/download/nginx-$NGINX_VER.tar.gz
 tar xzvf nginx-$NGINX_VER.tar.gz
 cd nginx-$NGINX_VER
