@@ -31,7 +31,7 @@ yum remove kernel*$KernelOld_VER*
 # Installation of Nginx
 
 ```
-export  NGINX_VER=1.26.0
+export  NGINX_VER=1.27.2
 curl -O https://nginx.org/download/nginx-$NGINX_VER.tar.gz
 tar xzvf nginx-$NGINX_VER.tar.gz
 cd nginx-$NGINX_VER
@@ -43,7 +43,8 @@ cd nginx-$NGINX_VER
        --pid-path=/root/nginx/nginx.pid            \
        --error-log-path=/root/nginx/error.log      \
        --with-http_ssl_module                      \
-       --with-http_v2_module 
+       --with-http_v2_module                       \ 
+       --with-http_v3_module
        
 make 
 make install 
