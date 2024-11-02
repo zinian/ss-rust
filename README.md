@@ -43,7 +43,7 @@ cd nginx-$NGINX_VER
        --pid-path=/root/nginx/nginx.pid            \
        --error-log-path=/root/nginx/error.log      \
        --with-http_ssl_module                      \
-       --with-http_v2_module                       \ 
+       --with-http_v2_module                       \
        --with-http_v3_module
        
 make 
